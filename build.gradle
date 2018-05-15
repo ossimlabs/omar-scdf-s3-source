@@ -25,7 +25,9 @@ buildscript {
     repositories {
         mavenLocal()
         maven { url "${ossimMavenProxy}" }
-        maven { url "https://repo.grails.org/grails/core" }
+        if( !System.env.WWW_CONNECTED || Boolean.parseBoolean( System.env.WWW_CONNECTED ) ) {
+            maven { url "https://repo.grails.org/grails/core" }
+        }
     }
     dependencies {
         classpath 'com.bmuschko:gradle-docker-plugin:3.0.6'
@@ -53,7 +55,6 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
 }
-
 
 ext {
     springCloudVersion = 'Dalston.RELEASE'
