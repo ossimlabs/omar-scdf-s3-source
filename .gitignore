@@ -1,5 +1,17 @@
 .gradle
 /build/
+Thumbs.db
+.DS_Store
+.gradle
+build/
+.idea
+*.iml
+*.ipr
+*.iws
+.project
+.settings
+.classpath
+.gitignore
 
 # Ignore Gradle GUI config
 gradle-app.setting
