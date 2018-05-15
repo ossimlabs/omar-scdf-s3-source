@@ -43,10 +43,7 @@ class OmarS3SourceApplication {
 	@Autowired
 	AmazonS3Client s3Client
 
-	@Value('${s3.url:https://s3.amazonaws.com}')
-	String s3Url
-
-	@Value('${local.dir:/data}')
+	@Value('${local.dir:/tmp}')
 	String localDir
 
 	@Value('${filter.file.type:nitf,nif}') 
@@ -99,7 +96,7 @@ class OmarS3SourceApplication {
 						)
 
 						log.debug("Parsed data:\n" + parsedJsonData.toString())
-						log.debug("Message sent: ${sendMessageOnOutputStream(parsedJsonData.toString())}")
+						log.debug("Message sent: ${sendMessageOnOutputStream(parsedJsonData)}")
 					}
 				}
     		}
@@ -154,9 +151,9 @@ class OmarS3SourceApplication {
 		return filenameWithDirectory
 	}
 
-	boolean sendMessageOnOutputStream(String message)
+	boolean sendMessageOnOutputStream(JsonBuilder data)
     {
-        Message<String> messageToSend = MessageBuilder.withPayload(message)
+        Message<String> messageToSend = MessageBuilder.withPayload(data.toString())
         .setHeader(MessageHeaders.CONTENT_TYPE, '${spring.cloud.stream.bindings.output.content.type}')
         .build()
 
