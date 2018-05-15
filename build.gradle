@@ -1,0 +1,85 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.3.RELEASE'
+        baseImage = "omar-base"
+        dockerStatementsOverride = {
+        [
+            "FROM ${project.dockerNamespaceUrl}${project.ext.baseImage}:${project.dockerAppTag}",
+            "MAINTAINER DigitalGlobe-RadiantBlue",
+            """LABEL com.digitalglobe.version="" """,
+            "COPY /${project.name}-${buildVersion}-${buildVersionTag}.jar /home/omar",
+            'RUN find $HOME -type d -exec chmod g+x {} +',
+            "ENV SPRING_PROFILES_ACTIVE=production",
+            "USER 1001",
+            "WORKDIR /home/omar",
+            "VOLUME /tmp",
+            "EXPOSE 8080",
+            "ENTRYPOINT java -server -Xms256m -Xmx1024m -Djava.awt.headless=true -XX:+CMSClassUnloadingEnabled -XX:+UseGCOverheadLimit -Djava.security.egd=file:/dev/./urandom -jar /home/omar/${project.name}-${buildVersion}-${buildVersionTag}.jar"
+       ]
+}
+    }
+    if(System.env.OMAR_COMMON_PROPERTIES)
+    {
+        apply from: System.env.OMAR_COMMON_PROPERTIES
+    }
+    repositories {
+        mavenLocal()
+        maven { url "${ossimMavenProxy}" }
+        maven { url "https://repo.grails.org/grails/core" }
+    }
+    dependencies {
+        classpath 'com.bmuschko:gradle-docker-plugin:3.0.6'
+        classpath 'com.github.skhatri:gradle-s3-plugin:1.0.4'
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:latest.release"
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+plugins {
+  id "org.sonarqube" version "2.5"
+}
+
+apply plugin: 'groovy'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: "idea"
+apply plugin: "java"
+apply plugin: "maven-publish"
+apply plugin: "maven"
+
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+
+ext {
+    springCloudVersion = 'Dalston.RELEASE'
+}
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter')
+    compile('org.springframework.cloud:spring-cloud-starter-aws')
+    compile('org.springframework.cloud:spring-cloud-starter-config')
+    compile('org.springframework.cloud:spring-cloud-starter-aws-messaging')
+    compile('org.springframework.cloud:spring-cloud-stream-binder-rabbit')
+    compile('org.codehaus.groovy:groovy')
+    compile('org.codehaus.groovy:groovy-json')
+    compile "org.springframework.boot:spring-boot-starter-actuator"
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
