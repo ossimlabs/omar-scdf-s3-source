@@ -14,7 +14,7 @@ The message sent by this app sends the following info:
 Omar SCDF S3 Source app has the following properties which can be overwritten during deployment.
 <dl>
   <dt>spring.cloud.stream.bindings.output.destination</dt>
-  <dd>The message output desination. <strong>(String, default: `files-extracted`)</strong></dd>
+  <dd>The message output desination. <strong>(String, default: files-extracted)</strong></dd>
 </dl>
 <dl>
   <dt>sqs.queue</dt>
