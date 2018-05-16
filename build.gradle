@@ -3,20 +3,20 @@ buildscript {
         springBootVersion = '1.5.3.RELEASE'
         baseImage = "omar-base"
         dockerStatementsOverride = {
-        [
-            "FROM ${project.dockerNamespaceUrl}${project.ext.baseImage}:${project.dockerAppTag}",
-            "MAINTAINER DigitalGlobe-RadiantBlue",
-            """LABEL com.digitalglobe.version="" """,
-            "COPY /${project.name}-${buildVersion}-${buildVersionTag}.jar /home/omar",
-            'RUN find $HOME -type d -exec chmod g+x {} +',
-            "ENV SPRING_PROFILES_ACTIVE=production",
-            "USER 1001",
-            "WORKDIR /home/omar",
-            "VOLUME /tmp",
-            "EXPOSE 8080",
-            "ENTRYPOINT java -server -Xms256m -Xmx1024m -Djava.awt.headless=true -XX:+CMSClassUnloadingEnabled -XX:+UseGCOverheadLimit -Djava.security.egd=file:/dev/./urandom -jar /home/omar/${project.name}-${buildVersion}-${buildVersionTag}.jar"
-       ]
-}
+            [
+                "FROM ${project.dockerNamespaceUrl}${project.ext.baseImage}:${project.dockerAppTag}",
+                "MAINTAINER Radiant Solutions",
+                """LABEL com.radiantsolutions.version="" """,
+                "COPY /${project.name}-${buildVersion}-${buildVersionTag}.jar /home/omar",
+                'RUN find $HOME -type d -exec chmod g+x {} +',
+                "ENV SPRING_PROFILES_ACTIVE=production",
+                "USER 1001",
+                "WORKDIR /home/omar",
+                "VOLUME /tmp",
+                "EXPOSE 8080",
+                "ENTRYPOINT java -server -Xms256m -Xmx1024m -Djava.awt.headless=true -XX:+CMSClassUnloadingEnabled -XX:+UseGCOverheadLimit -Djava.security.egd=file:/dev/./urandom -jar /home/omar/${project.name}-${buildVersion}-${buildVersionTag}.jar"
+            ]
+        }
     }
     if(System.env.OMAR_COMMON_PROPERTIES)
     {
