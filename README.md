@@ -14,19 +14,19 @@ The message sent by this app sends the following info:
 Omar SCDF S3 Source app has the following properties which can be overwritten during deployment.
 <dl>
   <dt>spring.cloud.stream.bindings.output.destination</dt>
-  <dd>The message output desination. (String, default: ```files-extracted```)</dd>
+  <dd>The message output desination. (String, default: files-extracted)</dd>
 </dl>
 <dl>
-  <dt>**sqs.queue**</dt>
-  <dd>AWS SQS to listen to. **(String, default: ```aws-sqs-queue``)**</dd>
+  <dt>sqs.queue</dt>
+  <dd>AWS SQS to listen to. (String, default: aws-sqs-queue)</dd>
 </dl>
 <dl>
-  <dt>**local.dir**</dt>
-  <dd>Where the file is downloaded to. **(String, default: ```/tmp```)**</dd>
+  <dt>local.dir</dt>
+  <dd>Where the file is downloaded to. (String, default: /tmp)</dd>
 </dl>
 <dl>
-  <dt>**filter.file.type**</dt>
-  <dd>Used to tell what type of files to download. **(String, default: ```nitf,ntf```)**</dd>
+  <dt>filter.file.type</dt>
+  <dd>Used to tell what type of files to download. (String, default: nitf,ntf)</dd>
 </dl>
 
 ## Amazon AWS common options ##
