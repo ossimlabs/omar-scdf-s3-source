@@ -18,7 +18,7 @@ Omar SCDF S3 Source app has the following properties which can be overwritten du
 </dl>
 <dl>
   <dt>sqs.queue</dt>
-  <dd>AWS SQS to listen to. (String, default: aws-sqs-queue)</dd>
+  <dd>AWS SQS to listen to. <strong>(String, default: aws-sqs-queue)</strong></dd>
 </dl>
 <dl>
   <dt>local.dir</dt>
