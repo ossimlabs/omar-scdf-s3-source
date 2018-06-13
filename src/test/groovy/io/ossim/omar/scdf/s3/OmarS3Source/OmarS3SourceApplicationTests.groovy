@@ -1,4 +1,4 @@
-package io.ossim.omar.scdf.s3.OmarS3Source
+/*package io.ossim.omar.scdf.s3.OmarS3Source
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -13,4 +13,4 @@ class OmarS3SourceApplicationTests {
 	void contextLoads() {
 	}
 
-}
+}*/
