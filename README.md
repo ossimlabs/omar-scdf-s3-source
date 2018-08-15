@@ -1,5 +1,8 @@
 # Omar SCDF S3 Source
-Omar SCDF S3 Source app monitors a given AWS SQS Queue and downloads the file specified in the SQS message.
+
+## Description 
+The OMAR SCDF S3 source application is a Spring Cloud Data Flow service involved in the ingest of imagery. It operates through monitoring an AWS SQS, downloading the message information, and forwarding the message down the ingest pipeline.
+
 ## Assumptions ##
 - The file to be downloaded is stored in a S3 Bucket.
 - The S3 Bucket has a SNS Topic associated with it that sends a notification when a new file is added to the bucket.
