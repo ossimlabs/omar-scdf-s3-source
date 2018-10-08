@@ -5,8 +5,8 @@ buildscript {
         dockerStatementsOverride = {
             [
                 "FROM ${project.dockerNamespaceUrl}${project.ext.baseImage}:${project.dockerAppTag}",
-                "MAINTAINER Radiant Solutions",
-                """LABEL com.radiantsolutions.version="" """,
+                """MAINTAINER Radiant Solutions""",
+                "USER root",
                 "COPY /${project.name}-${buildVersion}-${buildVersionTag}.jar /home/omar",
                 'RUN find $HOME -type d -exec chmod g+x {} +',
                 "ENV SPRING_PROFILES_ACTIVE=production",
